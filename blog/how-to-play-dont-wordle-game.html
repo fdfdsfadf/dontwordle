@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v3.6.4"><title>How to play Don't Wordle Game | Don't Wordle</title><link rel="canonical" href="https://dontwordle.net/blog/how-to-play-dont-wordle-game/"><meta name="description" content="Don't guessing the hidden word within 6 tries. A new puzzle is provided daily."><meta name="robots" content="index, follow"><meta property="og:title" content="Don't Wordle - The game opposite to Wordle"><meta property="og:type" content="website"><meta property="og:image" content="https://dontwordle.net/opengraph.jpg"><meta property="og:url" content="https://dontwordle.net/blog/how-to-play-dont-wordle-game/"><meta property="og:image:url" content="https://dontwordle.net/opengraph.jpg"><meta property="og:image:alt" content="Don't Wordle Homepage Screenshot"><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-RCT8VWWJVQ"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7391290963451115" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/blog.b8116fa3.css" /><script type="module">const t=document.getElementById("copyright-year");t&&(t.textContent=String(new Date().getFullYear()));
+</script></head> <body> <div class="max-w-screen-xl mx-auto px-5">  <header class="flex flex-col lg:flex-row justify-between items-center my-5">  <div class="flex w-full lg:w-auto items-center justify-between"> <a href="/" class="text-lg"><span class="font-bold text-slate-800">Don't</span><span class="text-slate-500">
+Wordle</span> </a> <div class="block lg:hidden"> <button id="astronav-menu" aria-label="Toggle Menu">  <svg fill="currentColor" class="w-4 h-4 text-gray-800" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <title>Toggle Menu</title> <path class="astronav-close-icon astronav-toggle hidden" fill-rule="evenodd" clip-rule="evenodd" d="M18.278 16.864a1 1 0 01-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 01-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 011.414-1.414l4.829 4.828 4.828-4.828a1 1 0 111.414 1.414l-4.828 4.829 4.828 4.828z"></path> <path class="astronav-open-icon astronav-toggle" fill-rule="evenodd" d="M4 5h16a1 1 0 010 2H4a1 1 0 110-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2z"></path> </svg>  </button> </div> </div> <nav class="astronav-items astronav-toggle hidden w-full lg:w-auto mt-2 lg:flex lg:mt-0">  <ul class="flex flex-col lg:flex-row lg:gap-3"> <li> <a href="/blog" class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900"> <span> Blog</span>  </a> </li> </ul>   </nav>  <script>(function(){const closeOnClick = false;
+
+["DOMContentLoaded", "astro:after-swap"].forEach((event) => {
+  document.addEventListener(event, addListeners);
+});
+
+// Function to clone and replace elements
+function cloneAndReplace(element) {
+  const clone = element.cloneNode(true);
+  element.parentNode.replaceChild(clone, element);
+}
+
+function addListeners() {
+  // Clean up existing listeners
+  const oldMenuButton = document.getElementById("astronav-menu");
+  if (oldMenuButton) {
+    cloneAndReplace(oldMenuButton);
+  }
+
+  const oldDropdownMenus = document.querySelectorAll(".astronav-dropdown");
+  oldDropdownMenus.forEach((menu) => {
+    cloneAndReplace(menu);
+  });
+
+  // Mobile nav toggle
+  const menuButton = document.getElementById("astronav-menu");
+  menuButton && menuButton.addEventListener("click", toggleMobileNav);
+
+  // Dropdown menus
+  const dropdownMenus = document.querySelectorAll(".astronav-dropdown");
+  dropdownMenus.forEach((menu) => {
+    const button = menu.querySelector("button");
+    button &&
+      button.addEventListener("click", (event) =>
+        toggleDropdownMenu(event, menu, dropdownMenus)
+      );
+
+    // Handle Submenu Dropdowns
+    const dropDownSubmenus = menu.querySelectorAll(
+      ".astronav-dropdown-submenu"
+    );
+
+    dropDownSubmenus.forEach((submenu) => {
+      const submenuButton = submenu.querySelector("button");
+      submenuButton &&
+        submenuButton.addEventListener("click", (event) => {
+          event.stopImmediatePropagation();
+          toggleSubmenuDropdown(event, submenu);
+        });
+    });
+  });
+
+  // Clicking away from dropdown will remove the dropdown class
+  document.addEventListener("click", closeAllDropdowns);
+
+  if (closeOnClick) {
+    handleCloseOnClick();
+  }
+}
+
+function toggleMobileNav() {
+  [...document.querySelectorAll(".astronav-toggle")].forEach((el) => {
+    el.classList.toggle("hidden");
+  });
+}
+
+function toggleDropdownMenu(event, menu, dropdownMenus) {
+  toggleMenu(menu);
+
+  // Close one dropdown when selecting another
+  Array.from(dropdownMenus)
+    .filter((el) => el !== menu && !menu.contains(el))
+    .forEach(closeMenu);
+
+  event.stopPropagation();
+}
+
+function toggleSubmenuDropdown(event, submenu) {
+  event.stopPropagation();
+  toggleMenu(submenu);
+
+  // Close sibling submenus at the same nesting level
+  const siblingSubmenus = submenu
+    .closest(".astronav-dropdown")
+    .querySelectorAll(".astronav-dropdown-submenu");
+  Array.from(siblingSubmenus)
+    .filter((el) => el !== submenu && !submenu.contains(el))
+    .forEach(closeMenu);
+}
+
+function closeAllDropdowns(event) {
+  const dropdownMenus = document.querySelectorAll(".dropdown-toggle");
+  const dropdownParent = document.querySelectorAll(
+    ".astronav-dropdown, .astronav-dropdown-submenu"
+  );
+  const isButtonInsideDropdown = [
+    ...document.querySelectorAll(
+      ".astronav-dropdown button, .astronav-dropdown-submenu button, #astronav-menu"
+    ),
+  ].some((button) => button.contains(event.target));
+  if (!isButtonInsideDropdown) {
+    dropdownMenus.forEach((d) => {
+      // console.log("I ran", d);
+      // if (!d.contains(event.target)) {
+      d.classList.remove("open");
+      d.removeAttribute("open");
+      d.classList.add("hidden");
+      // }
+    });
+    dropdownParent.forEach((d) => {
+      d.classList.remove("open");
+      d.removeAttribute("open");
+      d.setAttribute("aria-expanded", "false");
+    });
+  }
+}
+
+function toggleMenu(menu) {
+  menu.classList.toggle("open");
+  const expanded = menu.getAttribute("aria-expanded") === "true";
+  menu.setAttribute("aria-expanded", expanded ? "false" : "true");
+  menu.hasAttribute("open")
+    ? menu.removeAttribute("open")
+    : menu.setAttribute("open", "");
+
+  const dropdownToggle = menu.querySelector(".dropdown-toggle");
+  const dropdownExpanded = dropdownToggle.getAttribute("aria-expanded");
+  dropdownToggle.classList.toggle("hidden");
+  dropdownToggle.setAttribute(
+    "aria-expanded",
+    dropdownExpanded === "true" ? "false" : "true"
+  );
+}
+
+function closeMenu(menu) {
+  // console.log("closing", menu);
+  menu.classList.remove("open");
+  menu.removeAttribute("open");
+  menu.setAttribute("aria-expanded", "false");
+  const dropdownToggles = menu.querySelectorAll(".dropdown-toggle");
+  dropdownToggles.forEach((toggle) => {
+    toggle.classList.add("hidden");
+    toggle.setAttribute("aria-expanded", "false");
+  });
+}
+
+function handleCloseOnClick() {
+  const navMenuItems = document.querySelector(".astronav-items");
+  const navToggle = document.getElementById("astronav-menu");
+  const navLink = navMenuItems && navMenuItems.querySelectorAll("a");
+
+  const MenuIcons = navToggle.querySelectorAll(".astronav-toggle");
+
+  navLink &&
+    navLink.forEach((item) => {
+      item.addEventListener("click", () => {
+        navMenuItems?.classList.add("hidden");
+        MenuIcons.forEach((el) => {
+          el.classList.toggle("hidden");
+        });
+      });
+    });
+}
+})();</script> <!-- <div>
+      <div class="hidden lg:flex items-center gap-4">
+        <a href="#">Log in</a>
+        <Link href="#" size="md">Sign up</Link>
+      </div>
+    </div> --> </header>  </div>  <div class="max-w-screen-xl mx-auto px-5">  <div class="mx-auto max-w-3xl mt-14"> <span class="text-blue-400 uppercase tracking-wider text-sm font-medium"> Tutorials </span> <h1 class="text-4xl lg:text-5xl font-bold lg:tracking-tight mt-1 lg:leading-tight"> How to play Don&#39;t Wordle Game </h1> <div class="flex gap-2 mt-3 items-center flex-wrap md:flex-nowrap"> <span class="text-gray-400"> dontwordle.net </span> <span class="text-gray-400">•</span> <time class="text-gray-400" datetime="2024-03-03T19:03:00.000Z"> Sun Mar 03 2024 </time> <span class="text-gray-400 hidden md:block">•</span> <div class="w-full md:w-auto flex flex-wrap gap-3"> <span class="text-sm text-gray-500">#tutorials</span><span class="text-sm text-gray-500">#gameplay</span> </div> </div> </div> <div class="mx-auto prose prose-lg mt-6 max-w-3xl"> <p>Are you seeking a new twist on word guessing games? Look no further than “Don’t Wordle” a captivating variation that challenges players to unravel a hidden word within six attempts, but with a twist. Understanding the rules is key to mastering this engaging game. (<a href="https://dontwordle.net">Click here to play the Don’t Wordle Game</a>)</p>
+<ol>
+<li>
+<p><strong>Opposite Objective</strong>: In Don’t Wordle, the objective is reversed compared to traditional word guessing games. Instead of trying to guess the hidden word, players aim to avoid stumbling upon it within six attempts.</p>
+</li>
+<li>
+<p><strong>Preservation of Correct Placements</strong>: Once a letter is correctly guessed and placed, subsequent guesses must maintain that letter in the same position. This rule adds complexity and strategic depth to the game, requiring players to carefully consider each guess.</p>
+</li>
+<li>
+<p><strong>Relocation of Incorrect Placements</strong>: If a letter is correctly guessed but in the wrong position, subsequent guesses must relocate that letter. This rule challenges players to shuffle their guesses effectively while keeping track of previous feedback.</p>
+</li>
+<li>
+<p><strong>Elimination of Guessed Letters</strong>: Once a letter is guessed and ruled out, it cannot be used again. This rule encourages players to deduce the correct word by process of elimination, narrowing down the possibilities with each guess.</p>
+</li>
+<li>
+<p><strong>Limited Attempts and UNDO Function</strong>: Players have six attempts to guess the word correctly. If they find themselves running low on guesses, they can utilize the UNDO function to rectify mistakes and refine their strategy.</p>
+</li>
+</ol>
+<h2 id="a-dont-wordle-game-example">A Don’t Wordle Game Example</h2>
+<p>A game example goes as follows:</p>
+<p><img src="https://dontwordle.net/how-to-play-dont-wordle-game.jpg" alt="Don&#x27;t Wordle Game Example"></p>
+<ol>
+<li>
+<p>Initially, I pressed the “Random Starting Word” button and obtained a random starting word, which was <strong>“AUGUE”</strong>. All the letters were highlighted with gray backgrounds, indicating they were not part of the solution word. Consequently, I couldn’t use the letters A, U, G, or E in my subsequent guesses. At this point, the game indicated there were still 3602 words left to guess.</p>
+</li>
+<li>
+<p>Then, I guessed the word <strong>“CLOYS”</strong>. Similarly, none of the letters were part of the solution word. Thus, I couldn’t use the letters C, L, O, Y, or S in my future guesses either. The game now showed there were 270 words remaining to guess.</p>
+</li>
+<li>
+<p>By now, I hadn’t guessed any clues about the letters included in the solution. So, I proceeded to guess the word <strong>“FIXED”</strong>. The game highlighted the last two letters, E and D, with green backgrounds, indicating that I guessed E and D correctly, and they were in the right positions. This meant I had guessed two letters correctly at once, and my next guess had to be a word with E and D in the last two positions. At this point, the game indicated there were only 21 words left to guess.</p>
+</li>
+<li>
+<p>Next, I guessed the word <strong>“HEWED”</strong>. The game informed me that the solution word still included the letter E, but not the letters H or W. Therefore, in the next guess, I could only place the letter E in the first or third position of the word. Now, the game showed there were only 4 words left to guess.</p>
+</li>
+<li>
+<p>I chose to place the letter E in the first position and guessed the word <strong>“ENDED”</strong>. Unfortunately, the first letter of the solution word turned out to be E, and it was apparent that there were only 2 words left to guess. I was likely to lose the game.</p>
+</li>
+<li>
+<p>I guessed the word <strong>“EBBED”</strong>. Fortunately, I didn’t guess the solution word, and I emerged victorious in the game. The solution for this game is <strong>“EMBED”</strong>.</p>
+</li>
+</ol>
+<p>Mastering the rules of Don’t Wordle requires a combination of logical thinking, deduction, and adaptability. Starting with common letters and analyzing feedback meticulously can provide valuable insights. Players must also be strategic in their use of guesses, ensuring each attempt brings them closer to uncovering the hidden word.</p>
+<p>As players navigate through the intricacies of the rules, they’ll find themselves engaged in a thrilling mental challenge, where each guess brings them one step closer to victory. Are you ready to put your word-guessing skills to the test in the world of Don’t Wordle? Dive in and experience the excitement for yourself!</p> </div> <div class="text-center mt-8"> <a href="https://dontwordle.macbooksuck.xyz" class="bg-gray-100 px-5 py-3 rounded-md hover:bg-gray-200 transition">← Back to Game</a> </div>  </div>  <footer class="my-20 px-5"> <nav class="mb-4 flex justify-center gap-6 text-sm text-slate-500" aria-label="Footer"> <a class="hover:text-slate-900" href="/privacy-policy">Privacy Policy</a> <a class="hover:text-slate-900" href="/terms-of-service">Terms of Service</a> </nav> <p class="text-center text-sm text-slate-500">
+Copyright © <span id="copyright-year">2026</span>. All rights reserved.
+</p> </footer>  
+</body> </html>
